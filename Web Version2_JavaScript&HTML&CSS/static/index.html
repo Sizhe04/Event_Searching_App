@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Events Search</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="geohash.js" defer></script>
+    <script src="script.js" defer></script>
+    <script>
+      //reference of W3C school
+      function sortTable(n) {
+        var table,
+          rows,
+          switching,
+          i,
+          x,
+          y,
+          shouldSwitch,
+          dir,
+          switchcount = 0;
+
+        table = document.getElementById("main-table");
+        switching = true;
+
+        dir = "asc";
+
+        while (switching) {
+          switching = false;
+          rows = table.rows;
+
+          for (i = 1; i < rows.length - 1; i++) {
+            shouldSwitch = false;
+
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+          } else {
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+      //reference ends
+    </script>
+  </head>
+
+  <body>
+    <!-- 1 -->
+    <template id="template-table">
+      <tr>
+        <td class="tem-date"></td>
+        <td class="tem-icon"></td>
+        <td class="tem-event"></td>
+        <td class="tem-genre"></td>
+        <td class="tem-venue"></td>
+      </tr>
+    </template>
+    <div id="tem-body"></div>
+
+    <!-- 2 -->
+    <div id="searchForm">
+      <div id="header">
+        <div class="left"></div>
+      </div>
+
+      <!-- 3 -->
+      <form action="" onsubmit="return false">
+        <h1 class="bigTitle">Events Search</h1>
+        <hr id="lineInTheForm" />
+
+        <br />
+        <br />
+
+        <label class="keywordlabel" for="Keyword"
+          >Keyword<span class="star">*</span></label
+        >
+
+        <input
+          type="text"
+          name=""
+          required="required"
+          class="formInput"
+          id="keywordInput"
+          style="background-color: transparent"
+        />
+
+        <br />
+
+        <div style="width: 100%">
+          <div style="width: 30%; float: left">
+            <label for="Distance(miles)">Distance(miles)</label>
+            <input
+              placeholder="10"
+              type="number"
+              style="background-color: transparent"
+            />
+          </div>
+          <div style="margin-left: 50%">
+            <label for="Category">Category<span class="star">*</span></label>
+
+            <select
+              name=""
+              required="required"
+              style="background-color: transparent"
+            >
+              <option value="Default">Default</option>
+              <option value="Music">Music</option>
+              <option value="Sports">Sports</option>
+              <option value="Arts & Theatre">Arts & Theatre</option>
+              <option value="Film">Film</option>
+              <option value="Miscellaneous">Miscellaneous</option>
+            </select>
+          </div>
+        </div>
+
+        <br />
+
+        <label for="Location"
+          >Location<span class="star">*</span>
+          <input type="checkbox" id="autocheck" />
+          Auto-Detect Location
+        </label>
+        <br />
+        <div class="locationInput" id="div_locationInput">
+          <input
+            type="text"
+            required="required"
+            id="locationInput"
+            style="background-color: transparent"
+          />
+        </div>
+
+        <br />
+
+        <br />
+        <button type="submit" class="button" id="searchButton">SEARCH</button>
+        <button type="button" class="button" id="clearButton">CLEAR</button>
+      </form>
+    </div>
+
+    <!-- 4 -->
+    <div class="norecords none">
+      <h2 class="norecordsfound">No record has been found</h2>
+    </div>
+
+    <div>
+      <table class="main-table none" id="main-table">
+        <thead>
+          <tr id="tableHead">
+            <th id="date_head">Date</th>
+            <th id="icon_head">Icon</th>
+            <th
+              class="cansorted"
+              id="event_head"
+              data-type="string"
+              onclick="sortTable(2)"
+            >
+              Event
+            </th>
+            <th
+              class="cansorted"
+              id="genre_head"
+              data-type="string"
+              onclick="sortTable(3)"
+            >
+              Genre
+            </th>
+            <th
+              class="cansorted"
+              id="venue_head"
+              data-type="string"
+              onclick="sortTable(4)"
+            >
+              Venue
+            </th>
+          </tr>
+        </thead>
+        <tbody class="tablebody"></tbody>
+      </table>
+    </div>
+    <!-- 5 -->
+    <div class="table2 none" id="table2">
+      <h2 id="table2Header"></h2>
+
+      <br />
+      <div style="width: 60%; float: right">
+        <h2
+          class="table2ContentHeader"
+          id="pictureH2"
+          style="float: right"
+        ></h2>
+        <!-- <img
+          class="table2ContentHeader"
+          src="https://maps.ticketmaster.com/maps/geometry/3/event/09005D313D73791F/staticImage?type=png&systemId=HOST"
+          id="pictureH2"
+          style="float: right"
+        /> -->
+        <!--上mian style width = 30% -->
+        <img class="table2ContentText none" id="picture" style="float: right" />
+      </div>
+      <div style="width: 40%; float: left">
+        <h2
+          class="table2ContentHeader"
+          id="dateH2"
+          style="width: 100%; float: left"
+        >
+          Date
+        </h2>
+        <p
+          class="table2ContentText statusRect"
+          id="date"
+          style="float: left"
+        ></p>
+      </div>
+
+      <div style="width: 40%">
+        <h2
+          class="table2ContentHeader"
+          id="artistH2"
+          style="width: 100%; float: left"
+        >
+          Artist/Team
+        </h2>
+        <p class="table2ContentText" id="artist" style="float: left"></p>
+      </div>
+
+      <div style="width: 40%">
+        <h2
+          class="table2ContentHeader"
+          id="venueH2"
+          style="width: 100%; float: left"
+        >
+          Venue
+        </h2>
+        <p class="table2ContentText" id="venue" style="float: left"></p>
+      </div>
+      <div style="width: 40%">
+        <h2
+          class="table2ContentHeader"
+          id="genreH2"
+          style="width: 100%; float: left"
+        >
+          Genre
+        </h2>
+        <p class="table2ContentText" id="genre" style="float: left"></p>
+      </div>
+
+      <!-- <br /> -->
+
+      <div style="width: 30%">
+        <h2
+          class="table2ContentHeader"
+          id="priceRangesH2"
+          style="width: 100%; float: left"
+        >
+          Price Ranges
+        </h2>
+        <p class="table2ContentText" id="priceRanges" style="float: left"></p>
+      </div>
+
+      <div style="width: 40%">
+        <h2
+          class="table2ContentHeader"
+          id="ticketStatusH2"
+          style="width: 100%; float: left"
+        >
+          Ticket Status
+        </h2>
+        <p class="table2ContentText" id="ticketStatus" style="float: left"></p>
+      </div>
+
+      <div style="width: 40%">
+        <h2
+          class="table2ContentHeader"
+          id="buyTicketH2"
+          style="width: 100%; float: left"
+        >
+          Buy Ticket At:
+        </h2>
+        <p class="table2ContentText" id="buyTicket" style="float: left"></p>
+      </div>
+    </div>
+    <div class="showDetails">
+      <div class="table3HeaderContainer none">
+        <h3 class="table3Header">Show Venue Details</h3>
+        <!-- arrow button here -->
+        <div
+          href="#venueDetails"
+          class="showDetailsButton"
+          style="width: 100%"
+          id="showDetailsButton"
+        >
+          <div style="width: 50.6%; float: left">
+            <div
+              class="leftbutton"
+              id="showmorebutton"
+              style="width: 8%; float: right"
+            ></div>
+          </div>
+          <div style="width: 50.6%; float: right">
+            <div
+              class="rightbutton"
+              id="showmorebutton"
+              style="width: 8%; float: left"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="venueDetails none" id="venueDetails" style="width: 100%">
+        <div class="venueDetails2">
+          <div class="venueDetailsHeaderContainer" styple="width:100%;">
+            <!-- name here -->
+            <div class="venueDetailsHeader" id="venueDetailsHeader">
+              <h3 class="venueDetailsHeaderspan"></h3>
+            </div>
+          </div>
+          <img class="venueDetailspic" />
+          <div class="leftandright">
+            <div class="venueDetailsleft" style="width: 50%; float: left">
+              <div class="leftleft" style="width: 38%; float: left">
+                <p>Address:</p>
+              </div>
+              <div class="leftright" style="width: 60%; float: right">
+                <!-- address here -->
+                <p class="alladdress"></p>
+              </div>
+              <div class="opengoogleContainer" style="width: 100%; float: left">
+                <a class="opengoogle" target="_blank">Open in Google Maps</a>
+              </div>
+            </div>
+            <div class="venueDetailsright" style="width: 48%; float: right">
+              <a class="moreevents" target="_blank"
+                >More events at this venue</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
