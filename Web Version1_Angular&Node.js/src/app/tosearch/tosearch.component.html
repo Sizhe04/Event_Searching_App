@@ -1,0 +1,19 @@
+<app-form-search></app-form-search>
+
+<div
+  *ngIf="isDirty == true"
+  class="container align-items-center justify-content-center"
+>
+  <div
+    class="container px-0 align-items-center justify-content-center"
+    *ngIf="showContent == 'table'"
+  >
+    <app-search-result></app-search-result>
+  </div>
+
+  <div *ngIf="showContent == 'card'" class="container px-0">
+    <app-details-card></app-details-card>
+  </div>
+</div>
+
+<div class="p-1"></div>

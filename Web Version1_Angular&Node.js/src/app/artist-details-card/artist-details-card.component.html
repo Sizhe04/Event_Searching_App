@@ -1,0 +1,171 @@
+<div
+  id="carouselExampleControls"
+  class="carousel slide mt-3 row px-5"
+  data-bs-ride="carousel"
+>
+  <div class="px-5">
+    <div class="carousel-inner">
+      <div
+        class="carousel-item"
+        *ngFor="let data of spotifyInfoList; let i = index"
+        [class.active]="i == 0"
+      >
+        <div class="row justify-content-center d-flex">
+          <div class="col-lg-4">
+            <div class="d-flex justify-content-center position-relative">
+              <img
+                src="{{ data.artistPhotoLink }}"
+                alt="artistPhoto"
+                class="rounded-circle img-fluid"
+                style="max-width: 65%"
+              />
+            </div>
+            <div
+              class="mt-3 justify-content-center align-items-center text-center"
+              style="width: 100%"
+            >
+              <p
+                class="justify-content-end mb-0 text-lg"
+                style="font-size: 23px; color: aqua; font-weight: 700"
+              >
+                {{ data.artistName }}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-8 right3item">
+            <div class="row justify-content-center mt-5">
+              <div
+                class="col-lg-4 justify-content-center align-items-center text-center uploader-status"
+                style="color: aqua"
+              >
+                <h5 class="fw-bold" style="font-size: 20px">Popularity</h5>
+                <div
+                  class="d-flex justify-content-center position-relative mt-0"
+                >
+                  <mat-progress-spinner
+                    class="mat-progress-spinner"
+                    aria-label="Progress"
+                    mode="determinate"
+                    value="{{ data.artistPopularity }}"
+                    id="progressvalue"
+                    style="transform: scale(0.4)"
+                  ></mat-progress-spinner>
+                  <div
+                    style="
+                      position: relative;
+                      top: 39px;
+                      left: -59px;
+                      color: white;
+                    "
+                  >
+                    {{ data.artistPopularity }}
+                  </div>
+                </div>
+              </div>
+              <div
+                class="col-lg-4 justify-content-center align-items-center text-center"
+              >
+                <h5 class="fw-bold" style="color: aqua; font-size: 20px">
+                  Followers
+                </h5>
+                <div class="mt-5 mb-5" style="color: white">
+                  {{ data.artistFollowers }}
+                </div>
+              </div>
+              <div
+                class="col-lg-4 justify-content-center align-items-center text-center"
+              >
+                <h5 class="fw-bold" style="color: aqua; font-size: 20px">
+                  Spotify Link
+                </h5>
+                <div class="mt-5 mb-3">
+                  <a href="{{ data.artistSpotifyLink }}" target="_blank"
+                    ><i
+                      class="fa-brands fa-spotify fa-2xl"
+                      style="color: green; transform: scale(1.5)"
+                    ></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- album featuring -->
+        <div class="row mb-4 mt-4">
+          <h6 style="color: aqua; font-size: 15px">
+            Album featuring {{ data.artistName }}
+          </h6>
+        </div>
+        <div class="row justify-content-center mt-3 mb-1">
+          <div
+            class="col-lg-4 mb-5 justify-content-center align-items-center text-center"
+          >
+            <img
+              src="{{ data.albumImage0 }}"
+              class="mx-auto img-fluid"
+              style="max-width: 100%"
+            />
+          </div>
+          <div
+            class="col-lg-4 mb-5 justify-content-center align-items-center text-center"
+          >
+            <img
+              src="{{ data.albumImage1 }}"
+              class="d-block mx-auto img-fluid"
+              style="max-width: 100%"
+            />
+          </div>
+          <div
+            class="col-lg-4 mb-5 justify-content-center align-items-center text-center"
+          >
+            <img
+              src="{{ data.albumImage2 }}"
+              class="d-block mx-auto img-fluid"
+              style="max-width: 100%"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- album featuring end -->
+  <!-- <a
+    class="carousel-control-prev"
+    href="#carouselExampleControls"
+    role="button"
+    data-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a
+    class="carousel-control-next"
+    href="#carouselExampleControls"
+    role="button"
+    data-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> -->
+  <button
+    *ngIf="spotifyInfoList.length > 1"
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    *ngIf="spotifyInfoList.length > 1"
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleControls"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

@@ -1,0 +1,8 @@
+.active {
+  border: 2px solid white;
+  border-radius: 1rem;
+}
+
+.nav-link p {
+  color: white;
+}

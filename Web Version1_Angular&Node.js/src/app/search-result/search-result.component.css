@@ -1,0 +1,29 @@
+.norecords {
+  width: 950px;
+  height: 50px;
+  background-color: white;
+  margin: 100px auto;
+}
+
+/* .norecordsfound {
+  font-size: 25px;
+  color: red;
+  text-align: center;
+} */
+
+/* .table2 {
+  border-radius: 1rem;
+  background-color: black;
+} */
+
+.table-dark {
+  border-radius: 16px !important;
+}
+
+.iconimage {
+  width: 12vw;
+  height: 12vw;
+  object-fit: cover;
+  max-width: 120px;
+  max-height: 120px;
+}

@@ -1,0 +1,466 @@
+<!-- details card -->
+<div class="card mx-auto my-3 pb-3 mb-5" id="detailsCard">
+  <!--  -->
+  <div id="backbutton">
+    <i
+      class="fas fa-angle-left p-0 ps-3 pt-4 m-0"
+      (click)="goBack()"
+      style="
+        color: white;
+        font-size: 15px;
+
+        display: inline-block;
+      "
+    ></i>
+    <p
+      style="display: inline-block; text-decoration: underline; color: white"
+      (click)="goBack()"
+    >
+      Back
+    </p>
+  </div>
+
+  <div class="text-center m-3 mb-4">
+    <h1 style="color: white; font-size: 22px">
+      {{ titleName }}
+      <i
+        class="fa-solid fa-circle"
+        style="
+          position: relative;
+          left: 15px;
+          color: white;
+          transform: scale(1.5);
+        "
+        (click)="changeFavoritesStatus()"
+      >
+        <i
+          *ngIf="isFavorites"
+          class="fa-solid fa-heart"
+          style="
+            color: red;
+            z-index: 3;
+            position: relative;
+            top: 50%;
+            left: -50%;
+            transform: scale(0.6);
+          "
+        ></i>
+        <i
+          *ngIf="!isFavorites"
+          class="fa-regular fa-heart"
+          style="
+            color: black;
+            z-index: 3;
+            position: relative;
+            top: 50%;
+            left: -50%;
+            transform: scale(0.6);
+          "
+        ></i>
+      </i>
+    </h1>
+  </div>
+
+  <!-- <mat-icon svgIcon="favorite"></mat-icon> -->
+
+  <!-- style="background-color: aquamarine" -->
+  <mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="center"
+    backgroundColor="primary"
+  >
+    <!-- 1 -->
+    <mat-tab class="justify-content-center align-items-center text-center">
+      <ng-template mat-tab-label
+        ><span style="color: white">Events</span></ng-template
+      >
+
+      <div
+        class="row px-5 justify-content-center align-items-center text-center mt-5 mb-3"
+      >
+        <div
+          class="col-lg-4 justify-content-center align-items-center text-center"
+        >
+          <div *ngIf="isDateEnabled">
+            <h2
+              class="table2ContentHeader fw-bold mb-0"
+              style="color: aqua; font-size: 20px"
+            >
+              Date
+            </h2>
+            <p class="table2ContentText" style="color: white">
+              {{ date }}
+            </p>
+            <!-- <p>ABC</p> -->
+          </div>
+
+          <div *ngIf="isArtistEnabled">
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="artistH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Artist/Team
+            </h5>
+            <p class="table2ContentText" style="color: white">{{ artist }}</p>
+          </div>
+
+          <div *ngIf="isVenueEnabled">
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="venueH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Venue
+            </h5>
+            <p class="table2ContentText" style="color: white">{{ venue }}</p>
+          </div>
+
+          <div *ngIf="isGenresEnabled">
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="genreH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Genres
+            </h5>
+            <p class="table2ContentText" style="color: white">{{ genres }}</p>
+          </div>
+
+          <div *ngIf="isPriceRangesEnabled">
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="priceRangesH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Price Ranges
+            </h5>
+            <p class="table2ContentText" style="color: white">
+              {{ priceRanges }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="isTicketStatusEnabled"
+            class="justify-content-center align-items-center text-center"
+          >
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="ticketStatusH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Ticket Status
+            </h5>
+
+            <div
+              class="d-flex justify-content-center align-items-center text-center"
+            >
+              <p
+                class="table2ContentText"
+                style="color: white; border-radius: 5px; display: inline-block"
+                [ngStyle]="{
+                  'background-color':
+                    ticketStatus == 'On Sale'
+                      ? 'green'
+                      : ticketStatus == 'Off Sale'
+                      ? 'red'
+                      : ticketStatus == 'Canceled'
+                      ? 'black'
+                      : ticketStatus == 'Postponed' ||
+                        ticketStatus == 'Rescheduled'
+                      ? 'orange'
+                      : 'inherit',
+                  'flex-basis': 'auto',
+                  padding: '0 0.5em'
+                }"
+              >
+                {{ ticketStatus }}
+              </p>
+            </div>
+          </div>
+
+          <div *ngIf="isBuyTicketAtEnabled">
+            <h5
+              class="table2ContentHeader fw-bold mb-0"
+              id="buyTicketH2"
+              style="color: aqua; font-size: 20px"
+            >
+              Buy Ticket At:
+            </h5>
+            <p class="table2ContentText">
+              <a href="{{ buyTicketAtLink }}" type="_blank">Ticketmaster</a>
+            </p>
+          </div>
+        </div>
+        <div
+          class="col-lg-8 justify-content-center align-items-center text-center mt-3"
+        >
+          <img
+            src="{{ rightPhotoLink }}"
+            class="mx-auto img-fluid"
+            style="max-width: 80%"
+            id="picture"
+            alt="..."
+          />
+        </div>
+      </div>
+
+      <div
+        class="mt-4 mb-3 justify-content-center align-items-center text-center"
+        style="width: 100%; float: left"
+      >
+        <span class="px-1" style="color: white">
+          Share on:
+          <a
+            href="https://twitter.com/intent/tweet?text=Check%20{{
+              titleName
+            }}%20on%20Ticketmaster.%0A&url={{ shareLink }}"
+            target="_blank"
+            class="px-3"
+            ><i
+              class="fa-brands fa-twitter fa-2xl"
+              style="color: rgb(29, 161, 242)"
+            ></i
+          ></a>
+          <a
+            href="https://www.facebook.com/sharer/sharer.php?u={{ shareLink }}"
+            target="_blank"
+            ><i class="fa-brands fa-square-facebook fa-2xl"></i
+          ></a>
+        </span>
+      </div>
+    </mat-tab>
+    <!-- 2 -->
+    <mat-tab class="justify-content-center align-items-center text-center"
+      ><ng-template mat-tab-label>
+        <span style="color: white">Artist/Teams</span>
+      </ng-template>
+
+      <!-- If No Result -->
+
+      <div
+        class="norecords"
+        style="
+          background-color: white;
+          margin: 200px auto;
+          width: 70%;
+          border-radius: 1rem;
+        "
+        *ngIf="isNoMusic"
+      >
+        <p
+          class="fw-bold"
+          style="color: red; text-align: center; font-size: 20px"
+        >
+          No music related artist details to show
+        </p>
+      </div>
+
+      <!-- Show Result -->
+      <div *ngIf="!isNoMusic">
+        <app-artist-details-card></app-artist-details-card>
+      </div>
+    </mat-tab>
+
+    <!-- 3 -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span style="color: white">Venue</span>
+      </ng-template>
+
+      <div class="row justify-content-center d-flex mt-4 px-4">
+        <!-- 左边 -->
+        <div
+          class="col-lg-6 left3item justify-content-center align-items-center text-center"
+        >
+          <div *ngIf="venueName != undefined && venueName != ''">
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">Name</h4>
+            <p style="color: white">{{ venueName }}</p>
+          </div>
+          <div *ngIf="venueAddress != undefined && venueAddress != ''">
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">
+              Address
+            </h4>
+            <p style="color: white">{{ venueAddress }}</p>
+          </div>
+          <div *ngIf="venuePhoneNumber != undefined && venuePhoneNumber != ''">
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">
+              Phone Number
+            </h4>
+            <p style="color: white">{{ venuePhoneNumber }}</p>
+          </div>
+        </div>
+
+        <!-- 右边 -->
+        <div
+          class="col-lg-6 right3item justify-content-center align-items-center text-center"
+        >
+          <div
+            *ngIf="venueOpenHours != undefined && venueOpenHours != ''"
+            class="mb-3"
+          >
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">
+              Open Hours
+            </h4>
+
+            <div id="openhoursdiv" class="text-expander">
+              <div
+                style="color: white"
+                class="text-container-openhours noexpaned"
+                #textContainerOpenhours
+              >
+                {{ venueOpenHours }}
+              </div>
+
+              <div
+                class="show-more-button"
+                *ngIf="isExpandable"
+                (click)="toggleText_open()"
+                style="
+                  text-decoration: underline;
+                  color: skyblue;
+                  cursor: pointer;
+                "
+              >
+                {{ isExpanded_openhours ? "show less" : "show more" }}
+                <i
+                  style="color: white"
+                  class="fa-sharp fa-solid fa-angle-up"
+                  [ngClass]="{
+                    'fa-angle-up': isExpanded_openhours,
+                    'fa-angle-down': !isExpanded_openhours
+                  }"
+                ></i>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="venueGeneralRule != undefined && venueGeneralRule != ''"
+            class="mb-3"
+          >
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">
+              General Rule
+            </h4>
+            <div id="openhoursdiv" class="text-expander">
+              <div
+                style="color: white"
+                class="text-container-general noexpaned"
+                #textContainerGeneral
+              >
+                {{ venueGeneralRule }}
+              </div>
+
+              <div
+                class="show-more-button"
+                *ngIf="isExpandable"
+                (click)="toggleText_general()"
+                style="
+                  text-decoration: underline;
+                  color: skyblue;
+                  cursor: pointer;
+                "
+              >
+                {{ isExpanded_general ? "show less" : "show more" }}
+                <i
+                  style="color: white"
+                  class="fa-sharp fa-solid fa-angle-up"
+                  [ngClass]="{
+                    'fa-angle-up': isExpanded_general,
+                    'fa-angle-down': !isExpanded_general
+                  }"
+                ></i>
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="venueChildRule != undefined && venueChildRule != ''"
+            class="mb-3"
+          >
+            <h4 class="fw-bold" style="color: aqua; font-size: 20px">
+              Child Rule
+            </h4>
+            <div id="openhoursdiv" class="text-expander">
+              <div
+                style="color: white"
+                class="text-container-child noexpaned"
+                #textContainerChild
+              >
+                {{ venueChildRule }}
+              </div>
+
+              <div
+                class="show-more-button"
+                *ngIf="isExpandable"
+                (click)="toggleText_child()"
+                style="
+                  text-decoration: underline;
+                  color: skyblue;
+                  cursor: pointer;
+                "
+              >
+                {{ isExpanded_child ? "show less" : "show more" }}
+                <i
+                  style="color: white"
+                  class="fa-sharp fa-solid fa-angle-up"
+                  [ngClass]="{
+                    'fa-angle-up': isExpanded_child,
+                    'fa-angle-down': !isExpanded_child
+                  }"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="width: 100%; float: right"
+        class="justify-content-center align-items-center text-center mb-5"
+      >
+        <button class="btn btn-danger btn-lg" (click)="showGoogleMap()">
+          Show venue on Google map
+        </button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <!-- googleMap -->
+  <div
+    class="card mx-auto my-3 pb-3"
+    style="
+      max-width: 600px;
+      width: 100%;
+
+      border-radius: 1rem;
+
+      z-index: 999;
+      position: absolute;
+      top: 330px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      align-self: flex-start;
+    "
+    *ngIf="googleMap"
+  >
+    <div class="maptitle mt-3 px-3">
+      <h2 class="text-lg ml-3" style="color: black">Event Venue</h2>
+    </div>
+    <hr id="lineInTheForm" />
+    <div id="map" class="my-google-map px-3 pt-2">
+      <google-map width="100%" [options]="mapOptions">
+        <map-marker [position]="marker.position"></map-marker>
+      </google-map>
+    </div>
+    <div class="mt-3 px-4">
+      <div class="">
+        <button
+          type="submit"
+          class="btn btn-sm"
+          (click)="closeGoogleMap()"
+          style="background-color: black; color: white"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

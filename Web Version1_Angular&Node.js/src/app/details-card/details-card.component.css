@@ -1,0 +1,95 @@
+/* Events Card Title
+/* Venue Card Title */
+/* h3,
+h2 {
+  font-size: 22px;
+  color: aqua;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+
+
+.table2ContentText {
+  font-size: 6px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#picture {
+  width: 500px;
+  height: 400px;
+  margin-right: 70px;
+} */
+
+#detailsCard {
+  max-width: 900px;
+
+  justify-content: center;
+  background-color: rgba(122, 118, 118, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+/* .mat-progress-spinner circle {
+  stroke: red;
+}
+
+.uploader-status ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: red;
+} */
+
+/* .openhours {
+  overflow: hidden;
+  overflow-wrap: normal;
+  word-break: normal;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  text-overflow: clip;
+  word-wrap: normal;
+}
+
+.show-more {
+  overflow: visible;
+  text-overflow: inherit;
+  -webkit-line-clamp: unset;
+} */
+
+.text-container-openhours {
+  line-height: 1.5em; /* 每行文本高度 */
+  height: 3em; /* 两行文本总高度 */
+  overflow: hidden; /* 隐藏超出容器高度的文本 */
+}
+
+.text-container-general {
+  line-height: 1.5em; /* 每行文本高度 */
+  height: 3em; /* 两行文本总高度 */
+  overflow: hidden; /* 隐藏超出容器高度的文本 */
+}
+
+.text-container-child {
+  line-height: 1.5em; /* 每行文本高度 */
+  height: 3em; /* 两行文本总高度 */
+  overflow: hidden; /* 隐藏超出容器高度的文本 */
+}
+.expanded {
+  /* white-space: normal; */
+  max-height: none;
+  overflow: visible;
+}
+
+::ng-deep .mat-mdc-tab-label-container {
+  background-color: teal !important;
+}
+
+/* .mat-tab-label {
+  background: green;
+  color: white;
+} */
+
+/* .mat-tab-label-container {
+  background-color: teal !important;
+} */

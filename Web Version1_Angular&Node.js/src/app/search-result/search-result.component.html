@@ -1,0 +1,54 @@
+<div
+  class="container align-items-center justify-content-center mx-0 mt-5 mb-5 px-0"
+  style="max-width: 1200px"
+>
+  <div
+    class="card container px-0 align-items-center justify-content-center mx-0"
+    style="border: 0; border-radius: 16px; width: fix-content"
+    *ngIf="eventsList !== undefined && eventsList.length === 0"
+  >
+    <h3 class="norecordsfound text-danger fw-bold text-center px-5 m-0">
+      No results available
+    </h3>
+    <!-- <p>{{ eventsList !== undefined && eventsList.length }}</p> -->
+  </div>
+
+  <div
+    class="container px-0 mx-0 pb-0 mb-0"
+    id="table2"
+    *ngIf="eventsList !== undefined && eventsList.length > 0"
+    style="border-radius: 1rem; overflow: hidden"
+  >
+    <table
+      class="table table-dark table-striped table-hover text-center px-0 mx-0 pb-0 mb-0"
+    >
+      <thead>
+        <tr>
+          <th style="color: white; width: 15%">Date/Time</th>
+          <th style="color: white">Icon</th>
+          <th style="color: white">Event</th>
+          <th style="color: white">Genre</th>
+          <th style="color: white">Venue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let event of sortedEventsList; index as index"
+          (click)="getEventDetails(event.id, event._embedded.venues[0].id)"
+        >
+          <td style="color: white">
+            {{ event.dates.start.localDate }}<br />{{
+              event.dates.start.localTime
+            }}
+          </td>
+          <td><img [src]="event.images[0].url" class="iconimage" /></td>
+          <td style="color: white">{{ event.name }}</td>
+          <td style="color: white">
+            {{ event.classifications[0].segment.name }}
+          </td>
+          <td style="color: white">{{ event._embedded.venues[0].name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

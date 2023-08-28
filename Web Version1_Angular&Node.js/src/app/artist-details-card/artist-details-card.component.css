@@ -1,0 +1,8 @@
+.mat-progress-spinner circle {
+  stroke: red;
+}
+
+.uploader-status ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: red;
+}
